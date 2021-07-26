@@ -27,9 +27,9 @@ if __name__ == '__main__':
     # browser.refresh()
 
     username = WAIT.until(EC.presence_of_element_located(((By.XPATH, '//*[@id="username"]'))))
-    username.send_keys('')
+    username.send_keys('20307130234')
     passwd = WAIT.until(EC.presence_of_element_located(((By.XPATH, '//*[@id="password"]'))))
-    passwd.send_keys('')
+    passwd.send_keys('2002461525.cyd')
     signin = WAIT.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="idcheckloginbtn"]')))
     signin.click()
 
