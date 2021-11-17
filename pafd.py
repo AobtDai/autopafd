@@ -32,9 +32,9 @@ if __name__ == '__main__':
 
     try:
         username = WAIT.until(EC.presence_of_element_located(((By.XPATH, '//*[@id="username"]'))))
-        username.send_keys(' ')
+        username.send_keys('')
         passwd = WAIT.until(EC.presence_of_element_located(((By.XPATH, '//*[@id="password"]'))))
-        passwd.send_keys(' ')
+        passwd.send_keys('')
         signin = WAIT.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="idcheckloginbtn"]')))
         signin.click()
         print("Perfect signin")
@@ -89,7 +89,11 @@ if __name__ == '__main__':
         Sbmt2 = WAIT.until(EC.element_to_be_clickable((By.XPATH, '//*[@class="wapcf-btn wapcf-btn-ok"]')))
         Sbmt2.click()
 
-        element = browser.find_element_by_xpath('//img[@src="/backend/default/code"]')
+        chngimg =  WAIT.until(EC.element_to_be_clickable((By.XPATH, '//*[@class="wapat-title-img"]/span')))
+        chngimg.click()
+
+        # element = browser.find_element_by_xpath('//img[@src="/backend/default/code"]')
+        element = browser.find_element_by_xpath('//img[@alt=""]')
         # windowsize = browser.get_window_size()
         # x, y = element.location.values() # x = element.location.get('x') # y = element.location.get('y')
         x = 617; y = 243
@@ -98,6 +102,7 @@ if __name__ == '__main__':
         # Up to the setting of your screen
         # h = h*1.5; w = w*1.5 # nonheadless使用
 
+        time.sleep(2)
         image_data = browser.get_screenshot_as_png()
         screenshot = Image.open(BytesIO(image_data))
         screenshot.save('screenshot.png')
@@ -112,26 +117,23 @@ if __name__ == '__main__':
         capstr = pytesseract.image_to_string(captcha)
         num=1
         capstr = capstr.upper()
+        capstr0 = ""
         for c in capstr :
             if c>='A' and c<='Z':
                 num+=1
+                capstr0+=c
                 continue
-            c = 0
-        ######## 验证以下这个if有无问题
-        if num!=5:
-            continue
-        capstr = capstr[0:5]
-        # capstr = "1234" #####
-        print(capstr)
+        capstr0 = capstr0[0:4]
+        print(capstr0)
 
         sendcap = WAIT.until(EC.presence_of_element_located(((By.XPATH, '//*[@placeholder="请输入验证码"]'))))
-        sendcap.send_keys(capstr)
+        sendcap.send_keys(capstr0)
 
-        time.sleep(2)
+        # time.sleep(60)
         FinlSbmt = WAIT.until(EC.element_to_be_clickable((By.XPATH, '//*[@class="wapat-btn wapat-btn-ok"]')))
         FinlSbmt.click()
 
-        time.sleep(2)
+        # time.sleep(2)
         ErrSbmt = WAIT.until(EC.element_to_be_clickable((By.XPATH, '//*[@class="hint-show show"]/a')))
         ErrSbmt.click()
 
