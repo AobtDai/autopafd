@@ -29,12 +29,13 @@ browser.maximize_window()
 if __name__ == '__main__':
     url = "https://uis.fudan.edu.cn/authserver/login"
     browser.get(url)
-
+    uid = input()
+    pwd = input()
     try:
         username = WAIT.until(EC.presence_of_element_located(((By.XPATH, '//*[@id="username"]'))))
-        username.send_keys('')
+        username.send_keys(uid)
         passwd = WAIT.until(EC.presence_of_element_located(((By.XPATH, '//*[@id="password"]'))))
-        passwd.send_keys('')
+        passwd.send_keys(pwd)
         signin = WAIT.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="idcheckloginbtn"]')))
         signin.click()
         print("Perfect signin")
